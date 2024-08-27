@@ -26,22 +26,19 @@ jobs:
       id: vars
       run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
     - name: Check output
-      env:
-        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
       run: |
-        echo $RELEASE_VERSION
         echo ${{ steps.vars.outputs.tag }}
     - name: Bump version
-      uses: chkfung/android-version-actions@v1.2.1
+      uses: chkfung/android-version-actions@v1.2.3
       with:
         gradlePath: app/build.gradle.kts
         versionCode: ${{github.run_number}}
-        versionName: ${{env.RELEASE_VERSION}}
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+        versionName: ${{steps.vars.outputs.tag}}
+#    - name: Build Debug APK
+#      run: ./gradlew assembleDebug
 
-    - name: Upload artifact Debug APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: apk
-        path: app/build/outputs/apk/debug/*.apk
+#    - name: Upload artifact Debug APK
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: apk
+#        path: app/build/outputs/apk/debug/*.apk
