@@ -42,3 +42,22 @@ jobs:
       with:
         name: apk
         path: app/build/outputs/apk/debug/*.apk
+
+  release:
+    permissions:
+      contents: write
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Necessary to access local action
+      - name: github-action-release-apk
+        uses: gogoadl/github-action-release-apk@v1.0.0-alpha09
+        with:
+          asset-name: 'SampleAndroidApplication.apk'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base64-keystore: ${{ secrets.APP_KEYSTORE_BASE64 }}
+          key-file: ${{ secrets.APP_KEY_FILE }}
+          keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+          keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+          key-password: ${{ secrets.APP_KEY_PASSWORD }}
