@@ -11,8 +11,8 @@ android {
         applicationId = "org.deathdric.androidsandbox"
         minSdk = 24
         targetSdk = 34
-        versionCode = rootProject.ext.get("versCode").toString().toInt()
-        versionName = rootProject.ext.get("versName").toString()
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
