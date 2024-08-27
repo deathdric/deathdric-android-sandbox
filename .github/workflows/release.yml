@@ -34,11 +34,11 @@ jobs:
         gradlePath: app/build.gradle.kts
         versionCode: ${{github.run_number}}
         versionName: ${{steps.vars.outputs.tag}}
-#    - name: Build Debug APK
-#      run: ./gradlew assembleDebug
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
 
-#    - name: Upload artifact Debug APK
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: apk
-#        path: app/build/outputs/apk/debug/*.apk
+    - name: Upload artifact Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: apk
+        path: app/build/outputs/apk/debug/*.apk
